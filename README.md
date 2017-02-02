@@ -1,6 +1,6 @@
-# bitbucket-notifier
+# bitbucket-slack-notifier
 
-This is simple bitbucket server Slack Notifier service.
+This is simple BitBucket Server -> Slack Notifier service.
 
 The initial goal is to notify reviewers on any changes configured.
 
