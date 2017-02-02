@@ -4,10 +4,9 @@ const request = require('request');
 // Constants
 const urlPath = 'notify';
 const port = 9999;
-const webHookUrl = 'https://hooks.slack.com/services/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';
+const webHookUrl = 'https://hooks.slack.com/services/YOUR_URL';
 
 const app = express();
-// Don't forget to set Content-Type: application/json
 app.use(bodyParser.json());
 
 app.post('/' + urlPath, function (req, res) {
@@ -23,7 +22,7 @@ app.post('/' + urlPath, function (req, res) {
             request.post({
                 url: webHookUrl,
                 json: {
-                    channel: '@iminin',
+                    channel: '@' + reviewer,
                     text: message,
                     "attachments": [
                         {
