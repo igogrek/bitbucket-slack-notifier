@@ -2,7 +2,13 @@
     "pullRequestReviewers": "admin,user",
     "pullRequestTitle": "JIRA-123 Some feature",
     "pullRequestUrl": "http://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
-    "pullRequestAuthorDisplayName": "Vasiliy Pupkin",
+    "pullRequestAuthorDisplayName": "John Doe",
     "pullRequestAction": "OPENED",
-    "buttonTrigger": ""
+    "buttonTrigger": "",
+    "pullRequestAuthor": "admin",
+    "pullRequestApprovedCount": "2",
+    "triggerUser": "user",
+    "triggerDisplayName": "Test User",
+    "comment" : "This is comment",
+    "commentAction" : "ADDED"
 }

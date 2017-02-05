@@ -1,7 +1,8 @@
 {
-  "botToken" : "xoxb-123456789-123456",
-  "proxy" : "http://HOST:PORT",
-  "urlPath" : "notify",
+  "botToken": "xoxb-123456789-123456",
+  "proxy": "http://HOST:PORT",
+  "urlPath": "notify",
   "port": 9999,
-  "requiredApprovals" : 2
+  "requiredApprovals": 2,
+  "ciUserName": "jenkins"
 }

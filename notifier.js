@@ -23,7 +23,7 @@ function sendMessage(channel, message, pullRequestUrl, color) {
                 {
                     color: color,
                     text: pullRequestUrl,
-                    footer: "Yes I'm a bot (c) :robot_face:"
+                    // footer: 'Yes I'm a bot (c) :robot_face:'
                 }
             ])
         }
@@ -35,19 +35,32 @@ function sendMessage(channel, message, pullRequestUrl, color) {
 app.post('/' + variables.urlPath, function (req, res) {
     console.log(req.body);
     if (req.body) {
+        // Notify on opened PR or button click
         if (req.body.pullRequestAction == 'OPENED' || req.body.pullRequestAction == 'BUTTON_TRIGGER') {
             const reviewers = req.body.pullRequestReviewers.split(',');
             reviewers.forEach(function (reviewer) {
                 let cause = 'created a new';
-                if (req.body.buttonTrigger)
-                    cause = 'kindly asks you to review his';
-                let message = `*${req.body.pullRequestAuthorDisplayName}* ${cause} Pull Request: _${req.body.pullRequestTitle}_ \nPlease review at:`;
-                sendMessage(reviewer, message, req.body.pullRequestUrl, "#3AA3E3");
+                // Change text if button clicked
+                if (req.body.pullRequestAction == 'BUTTON_TRIGGER')
+                    cause = '*reminds* you to review his';
+                const message = `*${req.body.pullRequestAuthorDisplayName}* ${cause} Pull Request: _${req.body.pullRequestTitle}_ \nPlease review at:`;
+                sendMessage(reviewer, message, req.body.pullRequestUrl, '#3AA3E3');
             });
         } else if (req.body.pullRequestAction == 'APPROVED') {
+            // Notify if required approvals are reached
             if (req.body.pullRequestApprovedCount >= variables.requiredApprovals) {
-                let successMessage = `*Hurray*!!! Your Pull Request _${req.body.pullRequestTitle}_ reached required approval count and ready to be merged! \nCome on click *Merge* at:`;
-                sendMessage(req.body.pullRequestAuthor, successMessage, req.body.pullRequestUrl, "#3DB014");
+                const successMessage = `*Hurray*!!! Your Pull Request _${req.body.pullRequestTitle}_ reached required approval count and ready to be merged! \nCome on click *Merge* at:`;
+                sendMessage(req.body.pullRequestAuthor, successMessage, req.body.pullRequestUrl, '#3DB014');
+            }
+        } else if (req.body.pullRequestAction == 'COMMENTED') {
+            // Notify on new comment if it's not own comment
+            if (req.body.triggerUser != req.body.pullRequestAuthor) {
+                const commentMessage = `*${req.body.triggerDisplayName}* commented on your Pull Request _${req.body.pullRequestTitle}_:\n ${req.body.comment} \nReply at:`;
+                sendMessage(req.body.pullRequestAuthor, commentMessage, req.body.pullRequestUrl, '#EFC058');
+            } else if (req.body.triggerUser == variables.ciUserName && req.body.comment.indexOf('BUILD FAILED') > 0) {
+                // Notify if ci commented that build failed
+                const buildFailedMessage = `*Alert*! Your Pull Request _${req.body.pullRequestTitle}_ just failed to build on ${variables.ciUserName} \nSee at:`;
+                sendMessage(req.body.pullRequestAuthor, buildFailedMessage, req.body.pullRequestUrl, '#D21111');
             }
         }
     }
