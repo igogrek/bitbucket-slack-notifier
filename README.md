@@ -11,12 +11,22 @@ This is only the interceptor of outgoing requests from Pull Request Notifier plu
 The idea is to not just post in a channel for all PR's changes etc but to send a private messages to the
 required people
 
-#Features
+##Features
 - Send **private Slack messages** to all reviewers of the Pull Request
 - Send notification from button click to ping those who forgot to review
 - Notify pull request author when it's approval count is reached and ready to be merged
 - Send comment to the PR author directly from review
 - Notify on build error of the PR
+
+##How it works
+
+This is just an example service that turns PR Notifier plugin messages into slack messages.
+It recieves message from plugin on defined trigger and sends them yo your slack bot.
+
+All of the messages go to private @ Slack channels and this just works in our case -
+because our Slack user id's are the same as AD account names -> e.g. slug from bitbucket plugin.
+If your config will not allow this kind of thing - you can add custom mapping via JS for the usernames
+or some other way to properly link user in bitbucket with Slack id.
 
 ##Usage
 
@@ -33,11 +43,6 @@ required people
 6. Rename example-variables.json into variables.json and configure required fields - most importantly add bot token from slack
 8. Run `node notifier` to start the service (i would suggest using pm2 to demonize the service on the server)
 9. Fork for any required changes in the message
-
-##How it works
-
-This is just an example service that turns PR Notifier plugin messages into slack messages.
-It recieves message from plugin on defined trigger and sends them yo your slack bot.
 
 ##TODO
   - Cleanup and bugfix
