@@ -58,7 +58,7 @@ app.post('/' + variables.urlPath, function (req, res) {
                 // Notify if ci commented that build failed
                 const buildFailedMessage = `*Warning*! Your Pull Request _${req.body.pullRequestTitle}_ just failed to build on ${variables.ciUserName} \nSee at:`;
                 sendMessage(req.body.pullRequestAuthor, buildFailedMessage, req.body.pullRequestUrl, '#D21111');
-            } else if (req.body.triggerUser != req.body.pullRequestAuthor) {
+            } else if (req.body.triggerUser != req.body.pullRequestAuthor && req.body.triggerUser != variables.ciUserName) {
                 const commentMessage = `*${req.body.triggerDisplayName}* commented on your Pull Request _${req.body.pullRequestTitle}_:\n ${req.body.comment} \nReply at:`;
                 sendMessage(req.body.pullRequestAuthor, commentMessage, req.body.pullRequestUrl, '#EFC058');
             }
