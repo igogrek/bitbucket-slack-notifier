@@ -1,0 +1,14 @@
+{
+  "pullRequestReviewers": "${PULL_REQUEST_REVIEWERS_UNAPPROVED_SLUG}",
+  "pullRequestTitle": "${PULL_REQUEST_TITLE}",
+  "pullRequestUrl": "${PULL_REQUEST_URL}",
+  "pullRequestAuthorDisplayName": "${PULL_REQUEST_AUTHOR_DISPLAY_NAME}",
+  "pullRequestAction": "${PULL_REQUEST_ACTION}",
+  "buttonTrigger": "${BUTTON_TRIGGER_TITLE}",
+  "pullRequestAuthor": "${PULL_REQUEST_AUTHOR_SLUG}",
+  "pullRequestApprovedCount": "${PULL_REQUEST_REVIEWERS_APPROVED_COUNT}",
+  "triggerUser": "${PULL_REQUEST_USER_SLUG}",
+  "triggerDisplayName": "${PULL_REQUEST_USER_DISPLAY_NAME}",
+  "comment": "${PULL_REQUEST_COMMENT_TEXT}",
+  "commentAction": "${PULL_REQUEST_COMMENT_ACTION}"
+}
