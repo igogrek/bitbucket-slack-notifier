@@ -35,8 +35,12 @@ function sendMessage(channel, message, pullRequestUrl, color) {
 app.post('/' + variables.urlPath, function (req, res) {
     console.log(req.body);
     if (req.body) {
-        // Notify on opened PR or button click
-        if (req.body.pullRequestAction == 'OPENED' || req.body.pullRequestAction == 'BUTTON_TRIGGER') {
+        if (req.body.conflict) {
+            // Notify on PR conflicts
+            const conflictMessage = `*Warning*! Your Pull Request _${req.body.pullRequestTitle}_ has conflicts with branch *${req.body.toBranch}* \nSee conflicts at:`;
+            sendMessage(req.body.pullRequestAuthor, conflictMessage, req.body.pullRequestUrl, '#D21111');
+        } else if (req.body.pullRequestAction == 'OPENED' || req.body.pullRequestAction == 'BUTTON_TRIGGER') {
+            // Notify on opened PR or button click
             const reviewers = req.body.pullRequestReviewers.split(',');
             reviewers.forEach(function (reviewer) {
                 let cause = 'created a new';
