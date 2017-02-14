@@ -2,21 +2,22 @@
 
 This is simple BitBucket Server -> Slack Notifier service.
 
-The initial goal is to notify reviewers on any changes configured.
+The initial goal was to notify reviewers on any changes configured.
 
 Intended to use with https://github.com/tomasbjerre/pull-request-notifier-for-bitbucket
 
 This is only the interceptor of outgoing requests from Pull Request Notifier plugin.
 
-The idea is to not just post in a channel for all PR's changes etc but to send a private messages to the
+The idea is to not just post in a channel for all PR's changes etc but to **immediately** send **private messages** to the
 required people
 
 ##Features
 - Send **private Slack messages** to all reviewers of the Pull Request
-- Send notification from button click to ping those who forgot to review
+- Send private notification from button click to ping those who forgot to review
 - Notify pull request author when it's approval count is reached and ready to be merged
 - Send comment to the PR author directly from review
-- Notify on build error of the PR
+- Send private notification on build error of the PR
+- Send private notification on conflicts with target branch either on source or target branch changes
 
 ##How it works
 
