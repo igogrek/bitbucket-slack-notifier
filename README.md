@@ -34,10 +34,16 @@ or some other way to properly link user in bitbucket with Slack id.
 1. Install Slack and open management web app
 2. Add custom integration - **bot** and configure all fields. Copy bot token 
 1. Install BitBucket and get Pull Request Notifier plugin via Atlassian Marketplace
-2. Enable all needed triggers in plugin
-2. Configure plugin to send messages to *localhost:9999/notify*
-3. Set request to POST with payload from this repo *config.json* and Content-Type: application/json
-3. Add basic button [] to toggle messages on click
+2. Create 3 triggers in plugin
+  * main trigger, build failed and conflict
+    * main -> Triggers: APPROVED, COMMENTED, OPENED, BUTTON_TRIGGER, REOPENED    
+    * conflict -> trigger only when merge is conflicting, Triggers: OPENED, REOPENED, RESCOPED_FROM, RESCOPED_TO, UPDATED
+    * build failed -> Filter string: ${PULL_REQUEST_COMMENT_TEXT}, Filter regexp: BUILD FAILURE, Triggers: COMMENTED
+  * configure each one to send messages to *localhost:9999/notify*
+  * set request to POST with payload from this repo trigger-configs: *config.json*, *conflict-config.json* and *build-failed-config.json* respectively
+  * set Content-Type: application/json
+  * set Encode as HTML
+3. Add basic button [] to toggle messages on click (main trigger)
 4. Clone this project
 5. Install node.js with NPM
 6. Run `npm install` to get dependencies
