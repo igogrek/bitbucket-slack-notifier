@@ -62,6 +62,9 @@ app.post('/' + variables.urlPath, function (req, res) {
                 // Notify if ci commented that build failed
                 const buildFailedMessage = `:x: *Warning*! Your Pull Request _${req.body.pullRequestTitle}_ just failed to build on ${variables.ciUserName} \nSee at:`;
                 sendMessage(req.body.pullRequestAuthor, buildFailedMessage, req.body.pullRequestUrl, '#D21111');
+			} else if (req.body.triggerUser == variables.ciUserName && req.body.buildSuccessful) {
+                const buildSuccessfulMessage = `:white_check_mark: *Good Job*! Your Pull Request _${req.body.pullRequestTitle}_ was successfully build on ${variables.ciUserName} \nSee at:`;
+				sendMessage(req.body.pullRequestAuthor, buildSuccessfulMessage, req.body.pullRequestUrl, '#00B300');                          
             } else if (req.body.triggerUser != req.body.pullRequestAuthor && req.body.triggerUser != variables.ciUserName) {
                 const commentMessage = `:speech_balloon: *${req.body.triggerDisplayName}* commented on your Pull Request _${req.body.pullRequestTitle}_:\n ${req.body.comment} \nReply at:`;
                 sendMessage(req.body.pullRequestAuthor, commentMessage, req.body.pullRequestUrl, '#EFC058');
