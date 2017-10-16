@@ -17,7 +17,6 @@ function getUserChannel(user) {
 
 function sendMessage(user, message, pullRequestUrl, color, expressResponse) {
     const channel = getUserChannel(user);
-    console.log(channel);
     if (channel) {
         request.post({
             proxy: variables.proxy,
@@ -36,8 +35,12 @@ function sendMessage(user, message, pullRequestUrl, color, expressResponse) {
                 ])
             }
         }, function (error, response, body) {
-            console.log(body);
-            expressResponse.send(body);
+            const slackError = JSON.parse(body).error;
+            if (slackError) {
+                expressResponse.status(500).send(slackError);
+            } else {
+                expressResponse.send(body);
+            }
         });
     } else {
         const message = `User "${user}" is not mapped to a slack channel in users.json`;
@@ -49,7 +52,6 @@ function sendMessage(user, message, pullRequestUrl, color, expressResponse) {
 module.exports = function (app) {
 
     app.post('/' + variables.urlPath, function (req, res) {
-        console.log(req.body);
         if (req.body) {
             if (req.body.conflict) {
                 // Notify on PR conflicts
