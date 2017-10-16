@@ -36,6 +36,9 @@ Like `john.doe@mail.com` will create the private Slack channel `@john.doe`.
 You'll need to add a mapping between BitBucket account and your slack channel to file `users.json`.
 This file will be used once the notification is being sent to find channel name of the author/reviewer/commenter.
 
+There's a Web UI included for managing this mapping, located here: *http://localhost:9999/* 
+(sources and instructions [here](https://github.com/Igogrek/bitbucket-slack-notifier-admin))
+
 ## Usage
 
 1. Install Slack and open management web app
@@ -56,7 +59,7 @@ This file will be used once the notification is being sent to find channel name 
 6. Run `npm install` to get dependencies
 6. Rename example-variables.json into variables.json and configure required fields - most importantly add bot token from slack
 7. Add user mappings between BitBucket account name and Slack channel name to `users.json` like:
-_"bitBucketUserName":"slack.username"_ 
+_"bitBucketUserName":"slack.username"_  OR via web-interface at *http://localhost:9999/#/*
 8. Run `node notifier` to start the service (i would suggest using pm2 to demonize the service on the server)
 9. Fork for any required changes in the message
 
