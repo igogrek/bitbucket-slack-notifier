@@ -5,6 +5,8 @@ const variables = require('./variables');
 const app = express();
 app.use(bodyParser.json());
 
+app.use(express.static('web'));
+
 require('./user-mapping')(app);
 require('./sender')(app);
 
