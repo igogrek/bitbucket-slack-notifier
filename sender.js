@@ -37,7 +37,7 @@ function sendMessage(user, message, pullRequestUrl, color, expressResponse) {
             }
         }, function (error, response, body) {
             console.log(body);
-            expressResponse.status(500).send(body);
+            expressResponse.send(body);
         });
     } else {
         const message = `User "${user}" is not mapped to a slack channel in users.json`;
