@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const request = require('request');
 const variables = require('./variables');
 const slackUrl = 'https://slack.com/api/chat.postMessage';
@@ -10,7 +11,7 @@ const yellow = '#EFC058';
 
 function getUserChannel(user) {
     let channel = '';
-    const users = JSON.parse(fs.readFileSync('users.json'));
+    const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json')));
     console.log(users);
     Object.keys(users).forEach(function (userId) {
         if (userId == user) {
