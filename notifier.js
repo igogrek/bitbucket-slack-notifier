@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const variables = require('./variables');
@@ -5,7 +6,7 @@ const variables = require('./variables');
 const app = express();
 app.use(bodyParser.json());
 
-app.use(express.static('web'));
+app.use(express.static(path.join(__dirname, 'web')));
 
 require('./user-mapping')(app);
 require('./sender')(app);
